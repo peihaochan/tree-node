@@ -39,6 +39,12 @@ const App: React.FC = () => {
           />
         </div>
       </div>
+      {filteredData.length === 0 && (
+        <div className="noAppClass">
+          <span> No Applications with existing filters</span>
+        </div>
+      )}
+
       <div className="applicationContainer">
         {filteredData.map((item) => (
           <ApplicationWrapper dataObj={item} key={item.id} />

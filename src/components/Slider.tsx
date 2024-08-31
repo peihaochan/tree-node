@@ -26,7 +26,7 @@ export default function Slider(props: Iprops): JSX.Element {
 
   return (
     <div className="sliderContainer">
-      <b>Filter</b>
+      <b>Filters</b>
       <input
         className="sliderClass"
         type="range"

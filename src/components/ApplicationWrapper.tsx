@@ -9,7 +9,7 @@ export default function ApplicationWrapper(props: Iprops): JSX.Element {
   return (
     <div className="applicationWrapper">
       <b>{props.dataObj.name}</b>
-      <div>{`Total Spend: $${props.dataObj.spend}`}</div>
+      <div>{`Total spend: $${props.dataObj.spend}`}</div>
     </div>
   );
 }
