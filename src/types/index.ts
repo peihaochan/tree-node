@@ -12,3 +12,8 @@ export interface TreeNode {
   name: string;
   children?: TreeNode[];
 }
+
+export interface RangeValue {
+  min: number | null;
+  max: number | null;
+}

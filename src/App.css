@@ -1,19 +1,39 @@
 .appContainer {
   display: flex;
+  width: 100vw;
 
-  .sideBarContainer {
+  .leftPanel {
     min-height: 100vh;
     border-right: 2px black solid;
     padding-right: 1rem;
+
+    .sliderContainer {
+      display: flex;
+      flex-direction: column;
+
+      .sliderNumberWrapper {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .sideBarContainer {
+      padding-bottom: 10rem;
+    }
   }
 
-  .applicationWrapper {
-    margin-left: 1rem;
+  .applicationContainer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px black solid;
-    height: auto;
+    flex-wrap: wrap;
+    width: auto;
+
+    .applicationWrapper {
+      margin: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 1px black solid;
+      min-width: 10rem;
+    }
   }
 }
