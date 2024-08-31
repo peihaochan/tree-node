@@ -1,27 +1,18 @@
 // src/components/Sidebar.tsx
-import React, { useEffect, useState } from "react";
-import { buildTree } from "../utils/buildTree";
-import { fetchData } from "../hooks";
+import { useState } from "react";
 
 interface TreeNode {
   name: string;
   children?: TreeNode[];
 }
 
-interface SidebarProps {
+interface Iprops {
   onSelectNode: (node: TreeNode) => void;
+  tree: TreeNode[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onSelectNode }) => {
-  const [tree, setTree] = useState<TreeNode[]>([]);
+export default function Sidebar(props: Iprops): JSX.Element {
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    fetchData().then((data) => {
-      const treeData = buildTree(data);
-      setTree(treeData);
-    });
-  }, []);
 
   const toggleNode = (name: string) => {
     setExpandedNodes((prev) => {
@@ -48,7 +39,5 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectNode }) => {
     </ul>
   );
 
-  return <div>{renderTree(tree)}</div>;
-};
-
-export default Sidebar;
+  return <div className="sideBarContainer">{renderTree(props.tree)}</div>;
+}

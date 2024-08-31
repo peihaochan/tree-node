@@ -1,0 +1,19 @@
+.appContainer {
+  display: flex;
+
+  .sideBarContainer {
+    min-height: 100vh;
+    border-right: 2px black solid;
+    padding-right: 1rem;
+  }
+
+  .applicationWrapper {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px black solid;
+    height: auto;
+  }
+}

@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
+import { useData } from "./hooks/useData";
+import ApplicationWrapper from "./components/ApplicationWrapper";
+import "./App.css";
 
 const App: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
+  const { tree, filteredData } = useData();
 
   const handleSelectNode = (node: any) => {
     setSelectedNode(node.name);
   };
 
+  console.log("selectedNode", selectedNode);
+
   return (
-    <div style={{ display: "flex" }}>
-      <Sidebar onSelectNode={handleSelectNode} />
-      <div style={{ marginLeft: 20 }}>
-        {selectedNode ? (
-          <h2>Selected: {selectedNode}</h2>
-        ) : (
-          <h2>Select a business capability</h2>
-        )}
-        {/* Here you would render the filtered list based on the selected node and slider */}
+    <div className="appContainer">
+      {tree && <Sidebar onSelectNode={handleSelectNode} tree={tree} />}
+      <div>
+        {filteredData.map((item) => (
+          <ApplicationWrapper dataObj={item} key={item.id} />
+        ))}
       </div>
     </div>
   );
