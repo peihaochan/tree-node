@@ -6,21 +6,21 @@ export const buildTree = (applications: Application[]): TreeNode[] => {
   applications.forEach((app) => {
     let level1 = tree.find((node) => node.name === app.BCAP1);
     if (!level1) {
-      level1 = { name: app.BCAP1, children: [] };
+      level1 = { name: app.BCAP1, children: [], level: "BCAP1" }; // Set level
       tree.push(level1);
     }
 
     if (app.BCAP2) {
       let level2 = level1.children?.find((node) => node.name === app.BCAP2);
       if (!level2) {
-        level2 = { name: app.BCAP2, children: [] };
+        level2 = { name: app.BCAP2, children: [], level: "BCAP2" }; // Set level
         level1.children?.push(level2);
       }
 
       if (app.BCAP3) {
         let level3 = level2.children?.find((node) => node.name === app.BCAP3);
         if (!level3) {
-          level3 = { name: app.BCAP3 };
+          level3 = { name: app.BCAP3, level: "BCAP3" }; // Set level
           level2.children?.push(level3);
         }
       }

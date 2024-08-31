@@ -1,26 +1,35 @@
-// src/components/Sidebar.tsx
-import { useState } from "react";
-
-interface TreeNode {
-  name: string;
-  children?: TreeNode[];
-}
+import { useEffect, useState } from "react";
+import { Application, TreeNode } from "../types";
+import { useData } from "../hooks/useData";
 
 interface Iprops {
   tree: TreeNode[];
+  selectedNode: TreeNode | null;
+  setSelectedNode: React.Dispatch<React.SetStateAction<TreeNode | null>>;
+  expandedNodes: Set<string>;
+  setExpandedNodes: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
 export default function Sidebar(props: Iprops): JSX.Element {
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
+  const { filterInfoFunc, filterValue } = useData();
 
-  const toggleNode = (name: string, node: TreeNode) => {
-    console.log("name", name, "node", node);
-    setExpandedNodes((prev) => {
+  useEffect(() => {
+    if (props.selectedNode) {
+      filterInfoFunc(
+        props.selectedNode.name,
+        props.selectedNode.level as keyof Application
+      );
+    }
+  }, [props.selectedNode, filterInfoFunc]);
+
+  const toggleNode = (node: TreeNode) => {
+    props.setSelectedNode(node);
+    props.setExpandedNodes((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(name)) {
-        newSet.delete(name);
+      if (newSet.has(node.name)) {
+        newSet.delete(node.name);
       } else {
-        newSet.add(name);
+        newSet.add(node.name);
       }
       return newSet;
     });
@@ -30,14 +39,26 @@ export default function Sidebar(props: Iprops): JSX.Element {
     <ul>
       {nodes.map((node) => (
         <li key={node.name}>
-          <div onClick={() => toggleNode(node.name, node)}>{node.name}</div>
-          {node.children && expandedNodes.has(node.name) && (
-            <div style={{ marginLeft: 20 }}>{renderTree(node.children)}</div>
+          <div
+            className={`nodeClass ${
+              filterValue === node.name ? "onFilter" : ""
+            }`}
+            onClick={() => toggleNode(node)}
+          >
+            {node.name}
+          </div>
+          {node.children && props.expandedNodes.has(node.name) && (
+            <div className="">{renderTree(node.children)}</div>
           )}
         </li>
       ))}
     </ul>
   );
 
-  return <div className="sideBarContainer">{renderTree(props.tree)}</div>;
+  return (
+    <div className="sideBarContainer">
+      <b>Navigation</b>
+      <div>{renderTree(props.tree)}</div>
+    </div>
+  );
 }

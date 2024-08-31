@@ -11,6 +11,7 @@ export interface Application {
 export interface TreeNode {
   name: string;
   children?: TreeNode[];
+  level: string;
 }
 
 export interface RangeValue {

@@ -8,7 +8,7 @@ interface Iprops {
 export default function ApplicationWrapper(props: Iprops): JSX.Element {
   return (
     <div className="applicationWrapper">
-      <div>{props.dataObj.name}</div>
+      <b>{props.dataObj.name}</b>
       <div>{`Total Spend: $${props.dataObj.spend}`}</div>
     </div>
   );
